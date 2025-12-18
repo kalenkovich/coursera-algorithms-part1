@@ -1,0 +1,8 @@
+.idea/
+.lift/
+*.zip
+*.class
+*.txt
+/Algorithms, Part I.iml
+/CollidingDisks.java
+/logo.png
