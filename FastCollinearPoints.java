@@ -32,7 +32,8 @@ public class FastCollinearPoints {
                 slopes[j] = aux[0].slopeTo(aux[j]);
             }
             for (int j = 1; j < points.length - 2; j++) {
-                if (slopes[j] == slopes[j + 1] && slopes[j] == slopes[j + 2]) {
+                if (slopes[j] == slopes[j + 1] && slopes[j] == slopes[j + 2] &&
+                        (j == points.length - 3 || slopes[j] != slopes[j + 3])) {
                     numberOfSegments++;
                     lineSegments[numberOfSegments - 1] = new LineSegment(
                             min(aux[0], aux[j], aux[j + 1], aux[j + 2]),
