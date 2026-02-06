@@ -39,8 +39,8 @@ public class BruteCollinearPoints {
                         s = pointsSorted[l];
                         ps = p.slopeTo(s);
 
-                        if (pq == Double.NEGATIVE_INFINITY || pr == Double.NEGATIVE_INFINITY
-                                || ps == Double.NEGATIVE_INFINITY) {
+                        if (p == q || p == r || p == s ||
+                                q == r || q == s || r == s) {
                             throw new IllegalArgumentException("Duplicate points detected");
                         }
 
@@ -64,7 +64,7 @@ public class BruteCollinearPoints {
     }
 
     public LineSegment[] segments() {
-        return lineSegments;
+        return Arrays.copyOf(lineSegments, lineSegments.length);
     }
 
     public static void main(String[] args) {

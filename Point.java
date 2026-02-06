@@ -128,6 +128,7 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
+        Point p00 = new Point(0, 0);
         Point p0 = new Point(0, 0);
         Point p1 = new Point(1, 0);
         Point p2 = new Point(0, 1);
@@ -142,7 +143,7 @@ public class Point implements Comparable<Point> {
         System.out.println("compareTo tests:");
         System.out.println("p0 compareTo p1 (-1): " + p0.compareTo(p1));
         System.out.println("p0 compareTo p2 (-1): " + p0.compareTo(p2));
-        System.out.println("p0 compareTo p0 (0): " + p0.compareTo(p0));
+        System.out.println("p0 compareTo p0 (0): " + p0.compareTo(p00));
         System.out.println("p1 compareTo p2 (-1): " + p1.compareTo(p2));
         System.out.println("p1 compareTo p2 (1): " + p2.compareTo(p1));
         System.out.println();
