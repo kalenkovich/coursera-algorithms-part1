@@ -21,8 +21,8 @@ public class BruteCollinearPoints {
         Arrays.sort(pointsSorted);
 
         Point p, q, r, s;
-        Double pq, pr, ps, qr, qs, rs;
-        Double nInf = Double.NEGATIVE_INFINITY;
+        double pq, pr, ps, qr, qs, rs;
+        double nInf = Double.NEGATIVE_INFINITY;
         lineSegments = new LineSegment[points.length];
 
         for (int i = 0; i < points.length; i++) {
@@ -37,19 +37,23 @@ public class BruteCollinearPoints {
                     pr = p.slopeTo(r);
                     qr = q.slopeTo(r);
 
-                    for (int l = k + 1; l < points.length; l++) {
-                        s = pointsSorted[l];
+                    for (int m = k + 1; m < points.length; m++) {
+                        s = pointsSorted[m];
                         ps = p.slopeTo(s);
                         qs = q.slopeTo(s);
                         rs = r.slopeTo(s);
 
-                        if (pq.equals(nInf) || pr.equals(nInf) ||
-                                ps.equals(nInf) || qr.equals(nInf) ||
-                                qs.equals(nInf) || rs.equals(nInf)) {
+                        if (Double.compare(pq, nInf) == 0 ||
+                                Double.compare(pr, nInf) == 0 ||
+                                Double.compare(ps, nInf) == 0 ||
+                                Double.compare(qr, nInf) == 0 ||
+                                Double.compare(qs, nInf) == 0 ||
+                                Double.compare(rs, nInf) == 0) {
                             throw new IllegalArgumentException("Duplicate points detected");
                         }
 
-                        if (pq.equals(pr) && pq.equals(ps)) {
+                        if (Double.compare(pq, pr) == 0 &&
+                                Double.compare(pq, ps) == 0) {
                             numberOfSegments++;
                             LineSegment lineSegment = new LineSegment(p, s);
                             lineSegments[numberOfSegments - 1] = lineSegment;
