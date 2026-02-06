@@ -30,18 +30,30 @@ public class FastCollinearPoints {
                 }
             }
 
+            // sort by values first, so that runs with the same slope are sorted (sort is stable for objects)
+            Arrays.sort(aux, 1, aux.length);
             Arrays.sort(aux, aux[0].slopeOrder());
             for (int j = 1; j < points.length; j++) {
                 slopes[j] = aux[0].slopeTo(aux[j]);
             }
-            for (int j = 1; j < points.length - 2; j++) {
-                if (slopes[j] == slopes[j + 1] && slopes[j] == slopes[j + 2] &&
-                        (j == points.length - 3 || slopes[j] != slopes[j + 3])) {
-                    numberOfSegments++;
-                    lineSegments[numberOfSegments - 1] = new LineSegment(
-                            min(aux[0], aux[j], aux[j + 1], aux[j + 2]),
-                            max(aux[0], aux[j], aux[j + 1], aux[j + 2]));
+            for (int j = 1; j < points.length - 2; ) {
+                if (slopes[j] == slopes[j + 1]) {
+                    int k;
+                    for (k = j + 1; k < points.length - 1; k++) {
+                        if (slopes[j] != slopes[k + 1]) {
+                            break;
+                        }
+                    }
+                    if (k > j + 1) {  // at least three identical slopes
+                        Point min = min(aux[0], aux[j]);
+                        Point max = max(aux[0], aux[k]);
+                        numberOfSegments++;
+                        lineSegments[numberOfSegments - 1] = new LineSegment(min, max);
+                        j = k + 1;
+                        continue;
+                    }
                 }
+                j++;
             }
         }
 
@@ -78,30 +90,18 @@ public class FastCollinearPoints {
 
     }  // finds all line segments containing 4 or more points
 
-    private static Point min(Point p1, Point p2, Point p3, Point p4) {
+    private static Point min(Point p1, Point p2) {
         Point min = p1;
         if (p2.compareTo(min) < 0) {
             min = p2;
         }
-        if (p3.compareTo(min) < 0) {
-            min = p3;
-        }
-        if (p4.compareTo(min) < 0) {
-            min = p4;
-        }
         return min;
     }
 
-    private static Point max(Point p1, Point p2, Point p3, Point p4) {
+    private static Point max(Point p1, Point p2) {
         Point max = p1;
         if (p2.compareTo(max) > 0) {
             max = p2;
-        }
-        if (p3.compareTo(max) > 0) {
-            max = p3;
-        }
-        if (p4.compareTo(max) > 0) {
-            max = p4;
         }
         return max;
     }
