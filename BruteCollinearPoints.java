@@ -1,16 +1,15 @@
 import java.util.Arrays;
 
 public class BruteCollinearPoints {
-    private int numberOfSegments;
+    private int numberOfSegments = 0;
     private LineSegment[] lineSegments;
-    private Point[] pointsSorted;
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) {
             throw new IllegalArgumentException("points cannot be null");
         }
 
-        pointsSorted = new Point[points.length];
+        Point[] pointsSorted = new Point[points.length];
         Point point;
         for (int i = 0; i < points.length; i++) {
             point = points[i];
