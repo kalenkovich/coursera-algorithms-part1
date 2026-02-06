@@ -12,7 +12,9 @@ public class FastCollinearPoints {
         Point[] aux = new Point[points.length];
         double[] slopes = new double[points.length];
         int n = points.length;
-        lineSegments = new LineSegment[n * (n - 1) * (n - 2) * (n - 3) / 24];
+        int size = (int) ((long) n * (n - 1) * (n - 2) * (n - 3)
+                / 24); // maximum number of segments
+        lineSegments = new LineSegment[size];
 
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points.length; j++) {
