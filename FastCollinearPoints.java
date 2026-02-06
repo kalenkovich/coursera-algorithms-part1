@@ -12,8 +12,11 @@ public class FastCollinearPoints {
         Point[] aux = new Point[points.length];
         double[] slopes = new double[points.length];
         int n = points.length;
-        int size = (int) ((long) n * (n - 1) * (n - 2) * (n - 3)
-                / 24); // maximum number of segments
+        int size = n * (n - 1) / 2 * 10; // let's hope this is enough
+        // how I got this number: each segment is represented by 2 points, hence
+        // n * (n - 1) / 2 possible segments. However, there will be duplicates
+        // due to the slope not knowing direction. We'll assume that they end
+        // up being not more than 10 times.
         lineSegments = new LineSegment[size];
 
         for (int i = 0; i < points.length; i++) {
