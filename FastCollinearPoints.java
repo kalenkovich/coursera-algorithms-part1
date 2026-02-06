@@ -9,7 +9,22 @@ public class FastCollinearPoints {
             throw new IllegalArgumentException("points cannot be null");
         }
 
-        Point[] aux = new Point[points.length];
+        for (Point point : points) {
+            if (point == null) {
+                throw new IllegalArgumentException("point cannot be null");
+            }
+        }
+
+        // check for duplicates
+        Point[] aux = Arrays.copyOf(points, points.length);
+        Arrays.sort(aux);
+        for (int j = 0; j < aux.length - 1; j++) {
+            if (aux[j].compareTo(aux[j + 1]) == 0) {
+                throw new IllegalArgumentException("Duplicate points detected");
+            }
+        }
+
+
         double[] slopes = new double[points.length];
         int n = points.length;
         int size = n * (n - 1) / 2 * 10; // let's hope this is enough
